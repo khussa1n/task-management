@@ -1,4 +1,4 @@
-# blog_api
+# Task management
 
 Khussain Kudaibergenov |
 Хусаин Кудайбергенов
