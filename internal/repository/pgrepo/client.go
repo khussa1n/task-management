@@ -8,12 +8,12 @@ import (
 )
 
 const (
-	usersTable = "users"
-	//statusesTable     = "statuses"
+	usersTable    = "users"
+	statusesTable = "statuses"
 	//prioritiesTable   = "priorities"
-	//tasksTable        = "tasks"
-	//rolesTable        = "roles"
-	//membersTasksTable = "members_tasks"
+	tasksTable        = "tasks"
+	rolesTable        = "roles"
+	membersTasksTable = "members_tasks"
 	//actionsTable      = "actions"
 	//eventsTable       = "events"
 	//taskLogsTable     = "task_logs"

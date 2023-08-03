@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-func (h *Handler) GetUserByID(ctx *gin.Context) {
+func (h *Handler) getUserByID(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
 		log.Printf("can not get id: %w", err)
@@ -40,7 +40,7 @@ func (h *Handler) GetUserByID(ctx *gin.Context) {
 	})
 }
 
-func (h *Handler) UpdateUser(ctx *gin.Context) {
+func (h *Handler) updateUser(ctx *gin.Context) {
 	userID, ok := ctx.MustGet(authUserID).(int64)
 	if !ok {
 		log.Printf("can not get userID")
@@ -88,7 +88,7 @@ func (h *Handler) UpdateUser(ctx *gin.Context) {
 	return
 }
 
-func (h *Handler) DeleteUser(ctx *gin.Context) {
+func (h *Handler) deleteUser(ctx *gin.Context) {
 	userID, ok := ctx.MustGet(authUserID).(int64)
 	if !ok {
 		log.Printf("can not get userID")

@@ -13,9 +13,29 @@ func (h *Handler) InitRouter() *gin.Engine {
 
 	user := apiV1.Group("/users")
 	user.Use(h.authMiddleware())
-	user.GET("/:id", h.GetUserByID)
-	user.POST("/", h.UpdateUser)
-	user.DELETE("/", h.DeleteUser)
+	user.GET("/:id", h.getUserByID)
+	user.PUT("/", h.updateUser)
+	user.DELETE("/", h.deleteUser)
+
+	task := apiV1.Group("/tasks")
+	task.Use(h.authMiddleware())
+	task.POST("/", h.createTask)
+	task.GET("/", h.getAllTasks)
+	//task.GET("/:id")
+	//task.PUT("/")
+	//task.DELETE("/")
+
+	status := apiV1.Group("/statuses")
+	status.Use(h.authMiddleware())
+	status.POST("/", h.createStatus)
+	status.GET("/", h.getAllStatuses)
+	status.DELETE("/:id", h.deleteStatus)
+
+	role := apiV1.Group("/roles")
+	role.Use(h.authMiddleware())
+	role.POST("/", h.createRole)
+	role.GET("/", h.getAllRoles)
+	role.DELETE("/:id", h.deleteRole)
 
 	return router
 }
