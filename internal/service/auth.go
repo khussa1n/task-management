@@ -9,24 +9,27 @@ import (
 	"github.com/khussa1n/task-management/pkg/util"
 )
 
-func (m *Manager) CreateUser(ctx context.Context, u *entity.Users) error {
+func (m *Manager) CreateUser(ctx context.Context, u *entity.Users) (*entity.Users, error) {
 	hashedPassword, err := util.HashPassword(u.Password)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
+	password := u.Password
 	u.Password = hashedPassword
 
-	err = m.Repository.CreateUser(ctx, u)
+	user, err := m.Repository.CreateUser(ctx, u)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	user.Password = password
+
+	return user, nil
 }
 
-func (m *Manager) Login(ctx context.Context, username, password string) (string, error) {
-	user, err := m.Repository.GetUser(ctx, username)
+func (m *Manager) Login(ctx context.Context, email, password string) (string, error) {
+	user, err := m.Repository.GetUserByEmail(ctx, email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return "", fmt.Errorf("user_service not found")

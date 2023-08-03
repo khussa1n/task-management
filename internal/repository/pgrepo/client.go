@@ -7,7 +7,18 @@ import (
 	"net/url"
 )
 
-const usersTable = "users"
+const (
+	usersTable = "users"
+	//statusesTable     = "statuses"
+	//prioritiesTable   = "priorities"
+	//tasksTable        = "tasks"
+	//rolesTable        = "roles"
+	//membersTasksTable = "members_tasks"
+	//actionsTable      = "actions"
+	//eventsTable       = "events"
+	//taskLogsTable     = "task_logs"
+	//commentsTable = "comments"
+)
 
 type Postgres struct {
 	host     string

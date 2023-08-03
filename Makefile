@@ -2,4 +2,4 @@
 .SILENT:
 
 run:
-	go run cmd\blog\main.go
+	go run cmd\task-management\main.go

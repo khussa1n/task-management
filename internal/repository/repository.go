@@ -6,14 +6,14 @@ import (
 )
 
 type Authorization interface {
-	CreateUser(ctx context.Context, u *entity.Users) error
-	Login(ctx context.Context, username, password string) (string, error)
+	CreateUser(ctx context.Context, u *entity.Users) (*entity.Users, error)
 }
 
 type User interface {
-	GetUser(ctx context.Context, username string) (*entity.Users, error)
-	//UpdateUser(ctx context.Context, u *entity.User) error
-	//DeleteUser(ctx context.Context, id int64) error
+	GetUserByEmail(ctx context.Context, email string) (*entity.Users, error)
+	GetUserByID(ctx context.Context, id int64) (*entity.Users, error)
+	UpdateUser(ctx context.Context, u *entity.Users) (*entity.Users, error)
+	DeleteUser(ctx context.Context, id int64) error
 }
 
 type Repository interface {

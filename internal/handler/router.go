@@ -13,6 +13,9 @@ func (h *Handler) InitRouter() *gin.Engine {
 
 	user := apiV1.Group("/users")
 	user.Use(h.authMiddleware())
+	user.GET("/:id", h.GetUserByID)
+	user.POST("/", h.UpdateUser)
+	user.DELETE("/", h.DeleteUser)
 
 	return router
 }

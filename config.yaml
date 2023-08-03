@@ -13,5 +13,5 @@ db:
   password: 'postgres'
 
 token:
-  time_to_live: "15m"
+  time_to_live: "50m"
   token_secret_key: "asdfdsa"
