@@ -1,5 +1,11 @@
-.PHONY:
-.SILENT:
+build:
+	docker-compose build app
 
 run:
-	go run cmd\task-management\main.go
+	docker-compose up --build app
+
+migrate:
+	migrate -path ./migrations -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' up
+
+drop:
+	migrate -path ./migrations -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' down
