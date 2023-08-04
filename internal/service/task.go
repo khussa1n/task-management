@@ -25,3 +25,21 @@ func (m *Manager) GetAllTasks(ctx context.Context, id int64) ([]entity.Tasks, er
 
 	return tasks, nil
 }
+
+func (m *Manager) UpdateTask(ctx context.Context, t *entity.Tasks) (*entity.Tasks, error) {
+	task, err := m.Repository.UpdateTask(ctx, t)
+	if err != nil {
+		return nil, fmt.Errorf("can not update task: %w", err)
+	}
+
+	return task, nil
+}
+
+func (m *Manager) DeleteTask(ctx context.Context, id int64) error {
+	err := m.Repository.DeleteTask(ctx, id)
+	if err != nil {
+		return fmt.Errorf("can not delete task: %w", err)
+	}
+
+	return nil
+}

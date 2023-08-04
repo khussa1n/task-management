@@ -3,12 +3,12 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/khussa1n/task-management/api"
-	"github.com/khussa1n/task-management/internal/entity"
 	"log"
 	"net/http"
+	"strconv"
 )
 
-func (h *Handler) createTask(ctx *gin.Context) {
+func (h *Handler) createComment(ctx *gin.Context) {
 	userID, ok := ctx.MustGet(authUserID).(int64)
 	if !ok {
 		log.Printf("can not get userID")
@@ -19,7 +19,7 @@ func (h *Handler) createTask(ctx *gin.Context) {
 		return
 	}
 
-	var req api.TaskCreateRequest
+	var req api.CommentCreateRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
@@ -30,13 +30,13 @@ func (h *Handler) createTask(ctx *gin.Context) {
 		return
 	}
 
-	req.Tasks.UserID = userID
-	task, err := h.srvs.CreateTask(ctx, &req.Tasks)
+	req.Comments.UserID = userID
+	comment, err := h.srvs.CreateComment(ctx, &req.Comments)
 	if err != nil {
 		log.Printf("can not create task: %w", err)
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
-			Message: "invalid to create task",
+			Message: "invalid to create comment",
 		})
 		return
 	}
@@ -44,22 +44,11 @@ func (h *Handler) createTask(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &api.OK{
 		Code:    0,
 		Message: "success",
-		Data: entity.Tasks{
-			ID:           task.ID,
-			UserID:       task.UserID,
-			CreatedDate:  task.CreatedDate,
-			TaskName:     task.TaskName,
-			Description:  task.Description,
-			StatusID:     task.StatusID,
-			DeadlineFrom: task.DeadlineFrom,
-			DeadlineTo:   task.DeadlineTo,
-			PriorityID:   task.PriorityID,
-			ParentTaskID: task.ParentTaskID,
-		},
+		Data:    comment,
 	})
 }
 
-func (h *Handler) getAllTasks(ctx *gin.Context) {
+func (h *Handler) getAllComments(ctx *gin.Context) {
 	userID, ok := ctx.MustGet(authUserID).(int64)
 	if !ok {
 		log.Printf("can not get userID")
@@ -70,12 +59,12 @@ func (h *Handler) getAllTasks(ctx *gin.Context) {
 		return
 	}
 
-	tasks, err := h.srvs.GetAllTasks(ctx, userID)
+	comments, err := h.srvs.GetAllComments(ctx, userID)
 	if err != nil {
 		log.Printf("can not get all tasks: %w", err)
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -2,
-			Message: "invalid to get all tasks",
+			Message: "invalid to get all comments",
 		})
 		return
 	}
@@ -83,39 +72,27 @@ func (h *Handler) getAllTasks(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &api.OK{
 		Code:    0,
 		Message: "success",
-		Data:    tasks,
+		Data:    comments,
 	})
 }
 
-func (h *Handler) updateTask(ctx *gin.Context) {
-	userID, ok := ctx.MustGet(authUserID).(int64)
-	if !ok {
-		log.Printf("can not get userID")
+func (h *Handler) deleteComment(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		log.Printf("can not get id param: %w", err)
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
-			Message: "can't get user id from auth",
+			Message: "invalid id param",
 		})
 		return
 	}
 
-	var req api.TaskUpdateRequest
-	err := ctx.ShouldBindJSON(&req)
-	if err != nil || req.Tasks.ID == 0 {
-		log.Printf("bind json err: %s \n", err.Error())
-		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
-			Message: err.Error(),
-		})
-		return
-	}
-
-	req.Tasks.UserID = userID
-	task, err := h.srvs.UpdateTask(ctx, &req.Tasks)
+	err = h.srvs.DeleteComment(ctx, int64(id))
 	if err != nil {
 		log.Printf("can not update task: %w", err)
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
-			Message: "invalid to update task",
+			Message: "invalid to delete comment",
 		})
 		return
 	}
@@ -123,6 +100,6 @@ func (h *Handler) updateTask(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, &api.OK{
 		Code:    0,
 		Message: "success",
-		Data:    task,
+		Data:    "True",
 	})
 }

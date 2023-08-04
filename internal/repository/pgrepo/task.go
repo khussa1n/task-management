@@ -69,3 +69,43 @@ func (p *Postgres) GetAllTasks(ctx context.Context, userID int64) ([]entity.Task
 
 	return tasks, nil
 }
+
+func (p *Postgres) UpdateTask(ctx context.Context, t *entity.Tasks) (*entity.Tasks, error) {
+	task := new(entity.Tasks)
+
+	query := fmt.Sprintf(`
+		UPDATE %s
+		SET 
+			user_id = $2,
+			created_date = $3,
+			task_name = $4,
+			description = $5,
+			status_id = $6,
+			deadline_from = $7,
+			deadline_to = $8,
+			priority_id = $9,
+			parent_task_id = $10
+		WHERE id = $1
+		RETURNING *;
+	`, tasksTable)
+
+	err := pgxscan.Get(ctx, p.Pool, task, query,
+		t.ID, t.UserID, t.CreatedDate, t.TaskName, t.Description,
+		t.StatusID, t.DeadlineFrom, t.DeadlineTo, t.PriorityID, t.ParentTaskID)
+	if err != nil {
+		return nil, err
+	}
+
+	return task, nil
+}
+
+func (p *Postgres) DeleteTask(ctx context.Context, id int64) error {
+	query := fmt.Sprintf(`DELETE FROM %s WHERE id = $1`, tasksTable)
+
+	_, err := p.Pool.Exec(ctx, query, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

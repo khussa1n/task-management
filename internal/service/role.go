@@ -18,7 +18,7 @@ func (m *Manager) CreateRole(ctx context.Context, r *entity.Roles) (*entity.Role
 func (m *Manager) GetAllRoles(ctx context.Context) ([]entity.Roles, error) {
 	roles, err := m.Repository.GetAllRoles(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("can not get roles: %w", err)
+		return nil, fmt.Errorf("can not get all roles: %w", err)
 	}
 
 	return roles, nil

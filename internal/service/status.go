@@ -18,7 +18,7 @@ func (m *Manager) CreateStatus(ctx context.Context, s *entity.Statuses) (*entity
 func (m *Manager) GetAllStatuses(ctx context.Context) ([]entity.Statuses, error) {
 	statuses, err := m.Repository.GetAllStatuses(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("can not get status: %w", err)
+		return nil, fmt.Errorf("can not get all statuses: %w", err)
 	}
 
 	return statuses, nil
