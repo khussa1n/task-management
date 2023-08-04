@@ -13,7 +13,7 @@ services:
     ports:
       - 5438:5432
 
-  task-management:
+  app:
     build: ./
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; ./task-management'
     ports:
