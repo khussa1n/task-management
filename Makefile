@@ -5,7 +5,7 @@ run:
 	docker-compose up --build app
 
 migrate:
-	migrate -path ./migrations -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' up
+	migrate -path ./migrations/pg -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' up
 
 drop:
-	migrate -path ./migrations -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' down
+	migrate -path ./migrations/pg -database 'postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable' down
