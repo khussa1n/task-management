@@ -29,9 +29,9 @@ type DBConfig struct {
 	Port             string `yaml:"port"`
 	DBName           string `yaml:"db_name"`
 	Username         string `yaml:"username"`
-	MigrationPath    string `json:"migration_path"`
-	MigrationVersion uint   `json:"migration_version"`
 	Password         string `yaml:"password"`
+	MigrationPath    string `yaml:"migration_path"`
+	MigrationVersion uint   `yaml:"migration_version"`
 }
 
 func InitConfig(path string) (*Config, error) {

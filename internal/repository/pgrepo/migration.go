@@ -20,7 +20,7 @@ func NewMigrate(config *config.Config) *Migrate {
 
 	log.Println("MigrationPath: ", config.DB.MigrationPath)
 	migr, err := migrate.New(
-		fmt.Sprintf("file://migrations/pg"),
+		fmt.Sprintf("file://%s", config.DB.MigrationPath),
 		fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", config.DB.Username, config.DB.Password, config.DB.Host, config.DB.Port, config.DB.DBName))
 	if err != nil {
 		log.Fatal(err)

@@ -27,12 +27,12 @@ func Run(cfg *config.Config) error {
 	log.Println("connection success")
 
 	migration := pgrepo.NewMigrate(cfg)
-
-	err = migration.Up()
+	err = migration.MigrateToVersion(cfg.DB.MigrationVersion)
 	if err != nil {
 		log.Printf("from migration")
 		return err
 	}
+	log.Println("migration success")
 
 	token := jwttoken.New(cfg.Token.SecretKey)
 	srvs := service.New(db, token, cfg)

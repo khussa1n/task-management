@@ -1,6 +1,11 @@
 # Task management
 
-Khussain Kudaibergenov |
-Хусаин Кудайбергенов
+Khussain Kudaibergenov
 
-![alt text](http://C:\Users\duise\OneDrive\Изображения\Снимки экрана/img.png)
+## Getting started
+
+```
+docker-compose up --build app
+```
+
+<img alt="DB diagram" src="C:\Users\duise\OneDrive\Изображения\Снимки экрана\drow.png"/>
