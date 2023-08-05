@@ -8,4 +8,4 @@ Khussain Kudaibergenov
 docker-compose up --build app
 ```
 
-<img alt="DB diagram" src="C:\Users\duise\OneDrive\Изображения\Снимки экрана\drow.png"/>
+<img alt="DB diagram" src="db_diagram.png"/>
