@@ -60,7 +60,7 @@ func (h *Handler) getAllStatuses(ctx *gin.Context) {
 func (h *Handler) deleteStatus(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
-		log.Printf("can not get id: %w", err)
+		log.Printf("can not get id: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
 			Message: "invalid id param",

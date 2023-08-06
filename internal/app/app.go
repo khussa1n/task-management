@@ -5,6 +5,7 @@ import (
 	"github.com/khussa1n/task-management/internal/handler"
 	"github.com/khussa1n/task-management/internal/repository/pgrepo"
 	"github.com/khussa1n/task-management/internal/service"
+	"github.com/khussa1n/task-management/pkg/client/postgres"
 	"github.com/khussa1n/task-management/pkg/httpserver"
 	"github.com/khussa1n/task-management/pkg/jwttoken"
 	"log"
@@ -13,18 +14,20 @@ import (
 )
 
 func Run(cfg *config.Config) error {
-	db, err := pgrepo.New(
-		pgrepo.WithHost(cfg.DB.Host),
-		pgrepo.WithPort(cfg.DB.Port),
-		pgrepo.WithDBName(cfg.DB.DBName),
-		pgrepo.WithUsername(cfg.DB.Username),
-		pgrepo.WithPassword(cfg.DB.Password),
+	conn, err := postgres.New(
+		postgres.WithHost(cfg.DB.Host),
+		postgres.WithPort(cfg.DB.Port),
+		postgres.WithDBName(cfg.DB.DBName),
+		postgres.WithUsername(cfg.DB.Username),
+		postgres.WithPassword(cfg.DB.Password),
 	)
 	if err != nil {
 		log.Printf("connection to DB err: %s", err.Error())
 		return err
 	}
 	log.Println("connection success")
+
+	db := pgrepo.New(conn.Pool)
 
 	migration := pgrepo.NewMigrate(cfg)
 	err = migration.MigrateToVersion(cfg.DB.MigrationVersion)

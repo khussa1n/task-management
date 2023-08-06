@@ -33,7 +33,7 @@ func (h *Handler) createTask(ctx *gin.Context) {
 	req.Tasks.UserID = userID
 	task, err := h.srvs.CreateTask(ctx, &req.Tasks)
 	if err != nil {
-		log.Printf("can not create task: %w", err)
+		log.Printf("can not create task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to create task",
@@ -72,7 +72,7 @@ func (h *Handler) getAllTasks(ctx *gin.Context) {
 
 	tasks, err := h.srvs.GetAllTasks(ctx, userID)
 	if err != nil {
-		log.Printf("can not get all tasks: %w", err)
+		log.Printf("can not get all tasks: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -2,
 			Message: "invalid to get all tasks",
@@ -112,7 +112,7 @@ func (h *Handler) updateTask(ctx *gin.Context) {
 	req.Tasks.UserID = userID
 	task, err := h.srvs.UpdateTask(ctx, &req.Tasks)
 	if err != nil {
-		log.Printf("can not update task: %w", err)
+		log.Printf("can not update task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to update task",

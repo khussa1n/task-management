@@ -12,7 +12,7 @@ import (
 func (h *Handler) getUserByID(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
-		log.Printf("can not get id: %w", err)
+		log.Printf("can not get id: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
 			Message: "invalid id param",
@@ -66,7 +66,7 @@ func (h *Handler) updateUser(ctx *gin.Context) {
 	req.Users.ID = userID
 	user, err := h.srvs.UpdateUser(ctx, &req.Users)
 	if err != nil {
-		log.Printf("can not update user: %w", err)
+		log.Printf("can not update user: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to update user",
@@ -101,7 +101,7 @@ func (h *Handler) deleteUser(ctx *gin.Context) {
 
 	err := h.srvs.DeleteUser(ctx, userID)
 	if err != nil {
-		log.Printf("can not delete user: %w", err)
+		log.Printf("can not delete user: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -2,
 			Message: "invalid to delete user",

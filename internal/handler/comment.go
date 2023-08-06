@@ -33,7 +33,7 @@ func (h *Handler) createComment(ctx *gin.Context) {
 	req.Comments.UserID = userID
 	comment, err := h.srvs.CreateComment(ctx, &req.Comments)
 	if err != nil {
-		log.Printf("can not create task: %w", err)
+		log.Printf("can not create task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to create comment",
@@ -61,7 +61,7 @@ func (h *Handler) getAllComments(ctx *gin.Context) {
 
 	comments, err := h.srvs.GetAllComments(ctx, userID)
 	if err != nil {
-		log.Printf("can not get all tasks: %w", err)
+		log.Printf("can not get all tasks: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -2,
 			Message: "invalid to get all comments",
@@ -79,7 +79,7 @@ func (h *Handler) getAllComments(ctx *gin.Context) {
 func (h *Handler) deleteComment(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
-		log.Printf("can not get id param: %w", err)
+		log.Printf("can not get id param: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
 			Message: "invalid id param",
@@ -89,7 +89,7 @@ func (h *Handler) deleteComment(ctx *gin.Context) {
 
 	err = h.srvs.DeleteComment(ctx, int64(id))
 	if err != nil {
-		log.Printf("can not update task: %w", err)
+		log.Printf("can not update task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to delete comment",

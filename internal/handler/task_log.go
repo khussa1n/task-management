@@ -50,7 +50,7 @@ func (h *Handler) createTaskLog(ctx *gin.Context) {
 func (h *Handler) getAllTaskLogsByTaskID(ctx *gin.Context) {
 	taskID, err := strconv.Atoi(ctx.Param("taskID"))
 	if err != nil {
-		log.Printf("can not get id: %w", err)
+		log.Printf("can not get id: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
 			Message: "invalid id param",
@@ -99,7 +99,7 @@ func (h *Handler) updateTaskLog(ctx *gin.Context) {
 	req.TaskLogs.UserID = userID
 	taskLog, err := h.srvs.UpdateTaskLog(ctx, &req.TaskLogs)
 	if err != nil {
-		log.Printf("can not update task_logs: %w", err)
+		log.Printf("can not update task_logs: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to update task_logs",

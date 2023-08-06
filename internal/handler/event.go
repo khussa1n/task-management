@@ -33,7 +33,7 @@ func (h *Handler) createEvent(ctx *gin.Context) {
 	req.Events.UserID = userID
 	event, err := h.srvs.CreateEvent(ctx, &req.Events)
 	if err != nil {
-		log.Printf("can not create task: %w", err)
+		log.Printf("can not create task: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -3,
 			Message: "invalid to create event",
@@ -51,7 +51,7 @@ func (h *Handler) createEvent(ctx *gin.Context) {
 func (h *Handler) getAllEventsByTaskID(ctx *gin.Context) {
 	taskID, err := strconv.Atoi(ctx.Param("taskID"))
 	if err != nil {
-		log.Printf("can not get id: %w", err)
+		log.Printf("can not get id: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -1,
 			Message: "invalid id param",
@@ -61,7 +61,7 @@ func (h *Handler) getAllEventsByTaskID(ctx *gin.Context) {
 
 	events, err := h.srvs.GetAllEventsByTaskID(ctx, int64(taskID))
 	if err != nil {
-		log.Printf("can not get all events: %w", err)
+		log.Printf("can not get all events: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
 			Code:    -2,
 			Message: "invalid to get all events",
