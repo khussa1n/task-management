@@ -1,7 +1,5 @@
 # Task management
 
-Khussain Kudaibergenov
-
 ## Getting started
 
 ```
