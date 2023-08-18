@@ -15,7 +15,7 @@ services:
 
   app:
     build: ./
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; ./task-management'
+    command: sh -c 'while ! nc -z db 5432; do sleep 1; done && ./task-management'
     ports:
       - 8080:8080
     depends_on:

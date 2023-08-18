@@ -22,7 +22,6 @@ func (h *Handler) InitRouter() *gin.Engine {
 	task.POST("/", h.createTask)
 	task.GET("/", h.getAllTasks)
 	task.PUT("/", h.updateTask)
-	task.DELETE("/", h.updateTask)
 
 	status := apiV1.Group("/statuses")
 	status.Use(h.authMiddleware())

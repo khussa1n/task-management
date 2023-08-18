@@ -11,10 +11,20 @@ CREATE TABLE statuses (
     status_name         varchar(30) unique not null
 );
 
+INSERT INTO statuses (status_name) VALUES
+    ('open'),
+    ('in progress'),
+    ('completed');
+
 CREATE TABLE priorities (
     id                  serial primary key,
     priority_name       varchar(30) unique not null
 );
+
+INSERT INTO priorities (priority_name) VALUES
+    ('low'),
+    ('medium'),
+    ('high');
 
 CREATE TABLE tasks (
     id                  serial primary key,
@@ -34,6 +44,11 @@ CREATE TABLE roles (
     role_name           varchar(30) unique not null
 );
 
+INSERT INTO roles (role_name) VALUES
+    ('owner'),
+    ('member'),
+    ('superuser');
+
 CREATE TABLE members_tasks (
     user_id             integer references users(id) not null,
     task_id             integer references tasks(id) not null,
@@ -44,6 +59,12 @@ CREATE TABLE actions (
     id                  serial primary key,
     action_name         varchar(30) unique not null
 );
+
+INSERT INTO actions (action_name) VALUES
+    ('create'),
+    ('read'),
+    ('update'),
+    ('delete');
 
 CREATE TABLE events (
     id                  serial primary key,
