@@ -13,7 +13,6 @@ func (h *Handler) createComment(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -24,7 +23,6 @@ func (h *Handler) createComment(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -35,14 +33,12 @@ func (h *Handler) createComment(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not create task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to create comment",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    comment,
 	})
@@ -53,7 +49,6 @@ func (h *Handler) getAllComments(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -63,14 +58,12 @@ func (h *Handler) getAllComments(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get all tasks: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: "invalid to get all comments",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    comments,
 	})
@@ -81,7 +74,6 @@ func (h *Handler) deleteComment(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get id param: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "invalid id param",
 		})
 		return
@@ -91,14 +83,12 @@ func (h *Handler) deleteComment(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not update task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to delete comment",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    "True",
 	})

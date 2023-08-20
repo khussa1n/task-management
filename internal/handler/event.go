@@ -13,7 +13,6 @@ func (h *Handler) createEvent(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -24,7 +23,6 @@ func (h *Handler) createEvent(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -35,14 +33,12 @@ func (h *Handler) createEvent(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not create task: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to create event",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    event,
 	})
@@ -53,7 +49,6 @@ func (h *Handler) getAllEventsByTaskID(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get id: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "invalid id param",
 		})
 		return
@@ -63,14 +58,12 @@ func (h *Handler) getAllEventsByTaskID(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get all events: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: "invalid to get all events",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    events,
 	})

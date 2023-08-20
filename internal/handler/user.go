@@ -14,7 +14,6 @@ func (h *Handler) getUserByID(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get id: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "invalid id param",
 		})
 		return
@@ -24,14 +23,12 @@ func (h *Handler) getUserByID(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data: entity.Users{
 			FirstName: user.FirstName,
@@ -45,7 +42,6 @@ func (h *Handler) updateUser(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -57,7 +53,6 @@ func (h *Handler) updateUser(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -68,14 +63,12 @@ func (h *Handler) updateUser(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not update user: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to update user",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data: entity.Users{
 			ID:        user.ID,
@@ -93,7 +86,6 @@ func (h *Handler) deleteUser(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -103,14 +95,12 @@ func (h *Handler) deleteUser(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not delete user: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: "invalid to delete user",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    "True",
 	})

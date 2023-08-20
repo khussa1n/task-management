@@ -13,7 +13,6 @@ func (h *Handler) createTaskLog(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -24,7 +23,6 @@ func (h *Handler) createTaskLog(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: err.Error(),
 		})
 		return
@@ -34,14 +32,12 @@ func (h *Handler) createTaskLog(ctx *gin.Context) {
 	taskLog, err := h.srvs.CreateTaskLog(ctx, &req.TaskLogs)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    taskLog,
 	})
@@ -52,7 +48,6 @@ func (h *Handler) getAllTaskLogsByTaskID(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get id: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "invalid id param",
 		})
 		return
@@ -61,14 +56,12 @@ func (h *Handler) getAllTaskLogsByTaskID(ctx *gin.Context) {
 	taskLogs, err := h.srvs.GetAllTaskLogsByTaskID(ctx, int64(taskID))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    taskLogs,
 	})
@@ -79,7 +72,6 @@ func (h *Handler) updateTaskLog(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -90,7 +82,6 @@ func (h *Handler) updateTaskLog(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -101,14 +92,12 @@ func (h *Handler) updateTaskLog(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not update task_logs: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to update task_logs",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    taskLog,
 	})

@@ -13,7 +13,6 @@ func (h *Handler) createTask(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -24,7 +23,6 @@ func (h *Handler) createTask(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -35,14 +33,12 @@ func (h *Handler) createTask(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not create task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to create task",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data: entity.Tasks{
 			ID:           task.ID,
@@ -64,7 +60,6 @@ func (h *Handler) getAllTasks(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -74,14 +69,12 @@ func (h *Handler) getAllTasks(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get all tasks: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: "invalid to get all tasks",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    tasks,
 	})
@@ -92,7 +85,6 @@ func (h *Handler) updateTask(ctx *gin.Context) {
 	if !ok {
 		log.Printf("can not get userID")
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "can't get user id from auth",
 		})
 		return
@@ -103,7 +95,6 @@ func (h *Handler) updateTask(ctx *gin.Context) {
 	if err != nil || req.Tasks.ID == 0 {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
@@ -114,14 +105,12 @@ func (h *Handler) updateTask(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not update task: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -3,
 			Message: "invalid to update task",
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusOK, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    task,
 	})

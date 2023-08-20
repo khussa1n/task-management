@@ -15,7 +15,6 @@ func (h *Handler) createStatus(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("bind json err: %s \n", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: err.Error(),
 		})
 		return
@@ -24,14 +23,12 @@ func (h *Handler) createStatus(ctx *gin.Context) {
 	status, err := h.srvs.CreateStatus(ctx, &req.Statuses)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data: entity.Statuses{
 			ID:         status.ID,
@@ -44,14 +41,12 @@ func (h *Handler) getAllStatuses(ctx *gin.Context) {
 	statuses, err := h.srvs.GetAllStatuses(ctx)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    statuses,
 	})
@@ -62,7 +57,6 @@ func (h *Handler) deleteStatus(ctx *gin.Context) {
 	if err != nil {
 		log.Printf("can not get id: %s", err.Error())
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -1,
 			Message: "invalid id param",
 		})
 		return
@@ -71,14 +65,12 @@ func (h *Handler) deleteStatus(ctx *gin.Context) {
 	err = h.srvs.DeleteStatus(ctx, int64(id))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, &api.Error{
-			Code:    -2,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	ctx.JSON(http.StatusCreated, &api.OK{
-		Code:    0,
 		Message: "success",
 		Data:    "True",
 	})
